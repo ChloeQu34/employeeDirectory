@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {BrowserRouter as Link} from 'react-router-dom';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 class SearchDirectory extends React.Component{
     constructor(props){
@@ -14,7 +14,8 @@ class SearchDirectory extends React.Component{
     
     async fetchData(){
         try{
-            const url = "http://www.mocky.io/v2/5d4c4a803100005400a95348";
+            //const url = "http://www.mocky.io/v2/5d4c4a803100005400a95348";
+            const url = "http://www.mocky.io/v2/5d4d6ac8330000d43f33780f";
             const response = await fetch(url);
             const responseBody = await response.json();
             this.setState({empolyees: responseBody.employees});
@@ -54,23 +55,25 @@ class SearchDirectory extends React.Component{
         const foundEmployees = this.state.foundEmployees;
         return(
             <div>
-                <input onChange = {(e) => this.onTextChange(e)} type = 'text' />
-              
+                <h4 className="employDirectory">Employee Directory</h4>
+                <div className = "searchBox">
+                   <input className="search" onChange = {(e) => this.onTextChange(e)} type = 'text' />
+                </div>
+                
                 <ul>
                     {foundEmployees && foundEmployees.map(employee => (
-        
-                      //<Route path = `/employee/${employee.id}` render={(props) => <Employee {...props} employee = {employee} />}>
                       
+                      <Link to = {`/employee/${employee.id}`}>
                       <li key={employee.id} >
-                          
-                          <Link to = {`/employee/${employee.id}`}>
-                          <div>images</div>
-                          <div>
-                              <div>{employee.firstName} {employee.lastName}</div>
+                         
+                          <div className="image"><img src={employee.pic} /></div>
+                          <div className="employeeInformation">
+                              <div className="employeeName">{employee.firstName} {employee.lastName}</div>
                               <div>{employee.title}</div>
-                          </div>
-                          </Link>
+                          </div> 
+                         
                       </li>
+                      </Link>
                       
                     ))}
                 </ul>

@@ -9,7 +9,6 @@ function App() {
       <Router basename={"/MyReactApp"}>
       <div>
         
-        <SearchDirectory />
         <Switch>
           <Route exact path = "/" component = {SearchDirectory} />
           <Route path = "/employee/:id" component = {Employee} />
